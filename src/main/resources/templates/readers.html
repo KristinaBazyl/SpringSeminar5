@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All readers </title>
+</head>
+<body>
+<h3>list of all reader:</h3>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+    </tr>
+    <tr th:each="reader : ${readers}">
+        <td th:href="@{/reader/{id}(id=${reader.id})}" th:text="${reader.id}"></td>
+        <td th:href="@{/reader/{id}(id=${reader.name})}"th:text="${reader.name}"></td>
+    </tr>
+</table>
+
+</body>
+</html>
