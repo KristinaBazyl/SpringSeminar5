@@ -1,5 +1,6 @@
 package ru.gb.springdemo.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,11 +14,15 @@ import java.util.Date;
  @Data
  @Entity
  @Table(name = "issues")
+ @Schema(name = "Выдачи")
 public class Issue {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Schema(name = "Идентификатор выдачи")
   private Long id;
+  @Schema(name = "Идентификатор книги")
   private Long bookId;
+  @Schema(name = "Идентификатор читателя")
   private Long readerId;
 
   /**

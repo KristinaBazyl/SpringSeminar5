@@ -1,5 +1,6 @@
 package ru.gb.springdemo.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,8 +9,8 @@ import ru.gb.springdemo.model.Reader;
 import ru.gb.springdemo.repository.IssueRepository;
 import ru.gb.springdemo.repository.ReaderRepository;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReaderService {
@@ -25,7 +26,7 @@ public class ReaderService {
 
     // получить читателя по id
     public Reader getReaderById(Long id) {
-        return readerRepository.findById(id).get();
+        return readerRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
     //получить список всех читателей

@@ -1,5 +1,6 @@
 package ru.gb.springdemo.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -47,7 +48,7 @@ public class IssuerService {
         // можно проверить, что у читателя нет книг на руках (или его лимит не превышает в Х книг)
 
         if (issueRepository.getAllIssueByReaderId(issue.getReaderId()).size() >= limitBooks) {
-            throw new IllegalArgumentException("пользователь взял допустимое колличество книг");
+            throw new RuntimeException("пользователь взял допустимое колличество книг");
         }
         Issue newissue = new Issue(issue.getBookId(), issue.getReaderId());
         newissue.setIssuedAt(LocalDateTime.now());
@@ -68,7 +69,7 @@ public class IssuerService {
     // возврат книги
     @Transactional
     public Issue returnBooks(Long id) {
-       Issue updateIssue = issueRepository.findById(id).orElseThrow(()->new RuntimeException("Issue not found"));
+       Issue updateIssue = issueRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Issue not found"));
        updateIssue.setTimeReturn(LocalDateTime.now());
        return issueRepository.save(updateIssue);
     }

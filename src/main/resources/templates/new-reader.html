@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Creating a new reader</title>
+</head>
+<body>
+    <form th:method="POST" th:action="@{/ui/reader}" th:object="${reader}">
+        <label for="name">Enter name: </label>
+        <input type="text" th:field="*{name}" id="name"/>
+        <br/>
+        <input type="submit" value="Create reader">
+
+    </form>
+
+
+</body>
+</html>

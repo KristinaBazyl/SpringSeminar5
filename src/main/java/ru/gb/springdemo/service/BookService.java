@@ -1,14 +1,17 @@
 package ru.gb.springdemo.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.gb.springdemo.model.Book;
+import ru.gb.springdemo.model.Reader;
 import ru.gb.springdemo.repository.BookRepository;
 import ru.gb.springdemo.repository.IssueRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
@@ -23,7 +26,12 @@ public class BookService {
 
     // получить книгу по id
     public Book getBookById(Long id) {
-        return bookRepository.findById(id).get();
+        Optional<Book> optionalBook =bookRepository.findById(id);
+        if(optionalBook.isPresent()){
+            return optionalBook.get();
+        } else {
+            throw new EntityNotFoundException("Book not found.");
+        }
     }
 
     //получить список всех книг

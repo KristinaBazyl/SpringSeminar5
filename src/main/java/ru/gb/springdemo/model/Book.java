@@ -1,19 +1,28 @@
 package ru.gb.springdemo.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "books")
+@Schema(name = "Книги")
 public class Book {
 
 //  public static long sequence = 1L;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Schema(name = "Идентификатор")
   private  Long id;
+  @Schema(name = "Название книги")
   private String name;
+
 
   public Book() {
   }

@@ -1,15 +1,19 @@
 package ru.gb.springdemo.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @Entity
 @Table(name = "readers")
+@Schema(name = "Читатели")
 public class Reader {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(name = "Идентификатор читателя")
     private Long id;
+    @Schema(name = "Имя читателя")
     private String name;
 
     public Reader() {

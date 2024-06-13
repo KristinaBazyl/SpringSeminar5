@@ -62,7 +62,18 @@ public class UIController {
     @PostMapping("/issue")
     public String createIssue(@ModelAttribute("issue") Issue issue){
         issuerService.saveIssue(issue);
-        return "redirect:/issues";
+        return "redirect:/ui/issues";
+    }
+    //создание читателя
+    @GetMapping("/reader/new")
+    public String newReader(@ModelAttribute("reader") Reader reader){
+//        model.addAttribute("issue", new Issue());
+        return "new-reader.html";
+    }
+    @PostMapping("/reader")
+    public String createReader(@ModelAttribute("reader") Reader reader){
+        readerService.addReader(reader);
+        return "redirect:/ui/readers";
     }
 
 }
