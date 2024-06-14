@@ -8,8 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.gb.springdemo.model.Book;
+import ru.gb.springdemo.model.Role;
 import ru.gb.springdemo.model.User;
 import ru.gb.springdemo.service.BookService;
+import ru.gb.springdemo.service.RoleService;
 import ru.gb.springdemo.service.UserService;
 
 import java.util.List;
@@ -18,11 +20,11 @@ import java.util.List;
 @RequestMapping("/users")
 @Tag(name= "Users")
 public class UserController {
-    private final UserService userService;
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    private  UserService userService;
+    @Autowired
+    private  RoleService roleService;
+
 
     // получить пользователя по id
     @Operation(summary = "get user by ID", description = "Поиск пользователя по ID пользователя")
@@ -57,4 +59,19 @@ public class UserController {
     public ResponseEntity<User> addUser(@RequestBody User user){
         return new ResponseEntity<>(userService.addUser(user), HttpStatus.CREATED);
     }
+
+    // удаление пользователя
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id){
+        userService.deleteUser(id);
+        return new ResponseEntity<>( HttpStatus.NO_CONTENT);
+    }
+
+//    @PostMapping("/{userId}/role/{roleId}")
+//    public User addRoleToUser(@PathVariable Long userId, @PathVariable Long roleId) {
+//        User user = userService.getUserById(userId);
+//        Role role = roleService.getRoleById(roleId);
+//        user.getRoles().add(role);
+//        return userService.addUser(user);
+//    }
 }

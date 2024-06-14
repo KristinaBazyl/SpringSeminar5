@@ -4,6 +4,8 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import ru.gb.springdemo.model.Issue;
 import ru.gb.springdemo.model.Reader;
 import ru.gb.springdemo.model.Role;
@@ -39,15 +41,12 @@ public class UserService {
     }
 
     // создание пользователя
-    public User addUser(User user) {
-//        User newUser = new User();
-//        newUser.setLogin(user.getLogin());
-//        newUser.setPassword(user.getPassword());
-//        newUser.setRoles(Collections.singleton(new Role()));
+    public User addUser(User user){
+//        user.getRoles().add(role);
         return userRepository.save(user);
     }
 
-    //обновление читателей
+    //обновление пользователя
     @Transactional
     public User updateUsers(Long id, User user) {
         User updateUser = userRepository.findById(id).orElseThrow(()-> new RuntimeException("User not found"));
@@ -55,9 +54,10 @@ public class UserService {
         return userRepository.save(updateUser);
     }
 
-    // удаление читателя
+    // удаление пользователя
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+
 
 }

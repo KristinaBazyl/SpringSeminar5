@@ -2,6 +2,8 @@ package ru.gb.springdemo.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -21,7 +23,7 @@ public class User {
 
 //    @Column(name = "role")
 //    private String role;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "roles_users",
             joinColumns = @JoinColumn(

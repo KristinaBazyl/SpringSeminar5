@@ -1,21 +1,28 @@
 application:
   max-allowed-books: 2
 
+#spring:
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/mydb
+#    username: krisbaz
+#    password: 123456
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/mydb
+    url: jdbc:postgresql://localhost:5431/krisbazdb
     username: krisbaz
-    password: 123456
+    password: 1234
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
 #spring:
 #  datasource:
-#    url: jdbc:mysql://localhost:3306/mydb
-#    username: root
-#    password: 12345678
-#  jpa:
-#    hibernate:
-#      ddl-auto: update
-#    show-sql: true
+#    url: jdbc:h2:mem:test
+#    username: sa
+#    password:
+#    driver-class-name: org.h2.Driver

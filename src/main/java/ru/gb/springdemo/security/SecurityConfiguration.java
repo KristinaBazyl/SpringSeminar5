@@ -18,7 +18,7 @@ public class SecurityConfiguration {
         return httpSecurity
                 .authorizeHttpRequests(config -> config
 //                        .requestMatchers("/users/**").hasAuthority("user")
-//                        .requestMatchers("/ui/issues/**").hasAuthority("admin")
+                        .requestMatchers("/books/**").hasAuthority("admin")
 //                        .requestMatchers("/ui/readers/**").hasAuthority("reader")
 //                        .requestMatchers("/books/**").authenticated()
                         .anyRequest().permitAll()
