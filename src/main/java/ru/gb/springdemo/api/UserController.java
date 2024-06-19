@@ -6,10 +6,13 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import ru.gb.springdemo.aspect.Timer;
 import ru.gb.springdemo.model.Book;
 import ru.gb.springdemo.model.Role;
 import ru.gb.springdemo.model.User;
+import ru.gb.springdemo.security.CustomPasswordEncoder;
 import ru.gb.springdemo.service.BookService;
 import ru.gb.springdemo.service.RoleService;
 import ru.gb.springdemo.service.UserService;
@@ -24,6 +27,8 @@ public class UserController {
     private  UserService userService;
     @Autowired
     private  RoleService roleService;
+    @Autowired
+    private CustomPasswordEncoder passwordEncoder;
 
 
     // получить пользователя по id
@@ -48,6 +53,7 @@ public class UserController {
     }
 
     //получить список всех пользователей
+    @Timer
     @Operation(summary = "get all users", description = "Поиск всех пользователей в системе")
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
@@ -57,6 +63,9 @@ public class UserController {
     @Operation(summary = "create user", description = "Добавить пользователя в общий список системы")
     @PostMapping
     public ResponseEntity<User> addUser(@RequestBody User user){
+        User newUser = new User();
+        newUser.setLogin(user.getLogin());
+        newUser.setPassword(passwordEncoder.encode(user.getPassword()));
         return new ResponseEntity<>(userService.addUser(user), HttpStatus.CREATED);
     }
 
@@ -66,12 +75,12 @@ public class UserController {
         userService.deleteUser(id);
         return new ResponseEntity<>( HttpStatus.NO_CONTENT);
     }
-
-//    @PostMapping("/{userId}/role/{roleId}")
-//    public User addRoleToUser(@PathVariable Long userId, @PathVariable Long roleId) {
-//        User user = userService.getUserById(userId);
-//        Role role = roleService.getRoleById(roleId);
-//        user.getRoles().add(role);
-//        return userService.addUser(user);
-//    }
+    //добавление роли пользователю
+    @PostMapping("/{userId}/role/{roleId}")
+    public ResponseEntity<User> addRoleToUser(@PathVariable Long userId, @PathVariable Long roleId) {
+        User user = userService.getUserById(userId);
+        Role role = roleService.getRoleById(roleId);
+        user.getRoles().add(role);
+        return new ResponseEntity<>(userService.addUser(user), HttpStatus.OK);
+    }
 }

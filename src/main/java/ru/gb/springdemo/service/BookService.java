@@ -30,7 +30,7 @@ public class BookService {
         if(optionalBook.isPresent()){
             return optionalBook.get();
         } else {
-            throw new EntityNotFoundException("Book not found.");
+            throw new NullPointerException("Book not found.");
         }
     }
 

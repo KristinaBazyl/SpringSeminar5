@@ -42,7 +42,6 @@ public class UserService {
 
     // создание пользователя
     public User addUser(User user){
-//        user.getRoles().add(role);
         return userRepository.save(user);
     }
 
