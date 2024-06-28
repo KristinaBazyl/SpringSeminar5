@@ -13,10 +13,7 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 public class SecurityConfiguration {
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
+
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
@@ -28,8 +25,7 @@ public class SecurityConfiguration {
 //                        .requestMatchers("/books/**").authenticated()
                         .anyRequest().permitAll()
                 )
-//                .formLogin(Customizer.withDefaults())
-                .httpBasic(Customizer.withDefaults())
+                .formLogin(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .build();
 

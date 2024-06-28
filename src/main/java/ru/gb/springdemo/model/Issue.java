@@ -3,10 +3,8 @@ package ru.gb.springdemo.model;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
+import java.time.LocalDate;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * Запись о факте выдачи книги (в БД)
@@ -28,12 +26,12 @@ public class Issue {
   /**
    * Дата выдачи
    */
-  private  LocalDateTime issuedAt;
+  private LocalDate issuedAt;
   /**
    * Дата возврата
    */
 
-  private LocalDateTime timeReturn = null;
+  private LocalDate timeReturn = null;
 
   public Issue() {
   }
@@ -56,11 +54,11 @@ public class Issue {
     return readerId;
   }
 
-  public LocalDateTime getIssuedAt() {
+  public LocalDate getIssuedAt() {
     return issuedAt;
   }
 
-  public LocalDateTime getTimeReturn() {
+  public LocalDate getTimeReturn() {
     return timeReturn;
   }
 

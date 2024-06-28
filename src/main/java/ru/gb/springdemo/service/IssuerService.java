@@ -2,12 +2,10 @@ package ru.gb.springdemo.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
+
 import org.springframework.stereotype.Service;
 
 import ru.gb.springdemo.model.Issue;
@@ -15,8 +13,9 @@ import ru.gb.springdemo.repository.BookRepository;
 import ru.gb.springdemo.repository.IssueRepository;
 import ru.gb.springdemo.repository.ReaderRepository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -51,7 +50,7 @@ public class IssuerService {
             throw new RuntimeException("пользователь взял допустимое колличество книг");
         }
         Issue newissue = new Issue(issue.getBookId(), issue.getReaderId());
-        newissue.setIssuedAt(LocalDateTime.now());
+        newissue.setIssuedAt(LocalDate.now());
         issueRepository.save(newissue);
         return newissue;
     }
@@ -63,14 +62,14 @@ public class IssuerService {
 
     // получить информацию о запросе по id
     public Issue getIssueById(Long id) {
-        return issueRepository.findById(id).get();
+        return issueRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
     // возврат книги
     @Transactional
     public Issue returnBooks(Long id) {
        Issue updateIssue = issueRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Issue not found"));
-       updateIssue.setTimeReturn(LocalDateTime.now());
+       updateIssue.setTimeReturn(LocalDate.now());
        return issueRepository.save(updateIssue);
     }
     // удаление запроса

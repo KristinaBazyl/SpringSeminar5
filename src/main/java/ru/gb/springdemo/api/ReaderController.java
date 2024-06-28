@@ -65,7 +65,7 @@ public class ReaderController {
         readerService.deleteReader(id);
         return new ResponseEntity<>( HttpStatus.NO_CONTENT);
     }
-    //получить список запросов по id читателя
+    //получить список выдач по id читателя
     @Operation(summary = "get all issue by reader ID", description = "Получение списка выдач читателя по ID читателя")
     @GetMapping("/{id}/issue")
     public List<Issue> getAllIssueByReaderId(@PathVariable Long id){

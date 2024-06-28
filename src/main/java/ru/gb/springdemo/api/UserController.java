@@ -66,7 +66,7 @@ public class UserController {
         User newUser = new User();
         newUser.setLogin(user.getLogin());
         newUser.setPassword(passwordEncoder.encode(user.getPassword()));
-        return new ResponseEntity<>(userService.addUser(user), HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.addUser(newUser), HttpStatus.CREATED);
     }
 
     // удаление пользователя

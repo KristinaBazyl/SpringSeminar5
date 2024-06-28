@@ -28,13 +28,13 @@ public class BookController {
     }
 
     // получить книгу по id
-    @RecoverException(noRecoverFor = {IllegalArgumentException.class})
+    @RecoverException(noRecoverFor = {NullPointerException.class})
     @Operation(summary = "get book by ID", description = "Поиск книги по ID книги")
     @GetMapping("/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(bookService.getBookById(id));
-        } catch (IllegalArgumentException e) {
+        } catch (NullPointerException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
